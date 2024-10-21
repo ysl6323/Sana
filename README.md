@@ -3,11 +3,14 @@
 </p>
 
 # ⚡️Sana: Efficient High-Resolution Image Synthesis with Linear Diffusion Transformer
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/release/python-3100/)
+
+<div align="center">
+  <a href="https://nvlabs.github.io/Sana/"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Github&color=blue&logo=github-pages"></a> &ensp;
+  <a href="https://arxiv.org/abs/2410.10629"><img src="https://img.shields.io/static/v1?label=Arxiv&message=Sana&color=red&logo=arxiv"></a> &ensp;
+  <a href="https://ea13ab4f5bd9c74f93.gradio.live/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
+</div>
 
 [//]: # ([![Model License]&#40;https://img.shields.io/badge/MODEL%20License-CC%20By%20NC%204.0-red.svg&#41;]&#40;MODEL_LICENSE&#41;)
-
-[Sana arxiv](https://arxiv.org/abs/2410.10629) / [Sana Demo](https://sana-gen.mit.edu)
 
 <p align="center" border-raduis="10px">
   <img src="asset/Sana.jpg" width="90%" alt="teaser_page1"/>
@@ -33,7 +36,8 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 
 ## 🔥🔥 News
 -  Sana code is coming soon
-- (🔥 New) [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
+- (🔥 New) [2024/10] [Demo](https://ea13ab4f5bd9c74f93.gradio.live/) is released.
+- (🔥 New) [2024/10] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
 - [2024/10] [Paper](https://arxiv.org/abs/2410.10629) is on Arxiv!
 
 ## Performance
