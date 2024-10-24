@@ -1,25 +1,24 @@
 <p align="center" style="border-radius: 10px">
-  <img src="asset/logo.png" width="30%" alt="logo"/>
+  <img src="asset/logo.png" width="35%" alt="logo"/>
 </p>
 
 # ⚡️Sana: Efficient High-Resolution Image Synthesis with Linear Diffusion Transformer
 
 <div align="center">
-  <a href="https://nvlabs.github.io/Sana/"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Github&color=blue&logo=github-pages"></a> &ensp;
+  <a href="https://nvlabs.github.io/Sana/"><img src="https://img.shields.io/static/v1?label=Project&message=Github&color=blue&logo=github-pages"></a> &ensp;
+  <a href="https://hanlab.mit.edu/projects/sana/"><img src="https://img.shields.io/static/v1?label=Page&message=MIT&color=darkred&logo=github-pages"></a> &ensp;
   <a href="https://arxiv.org/abs/2410.10629"><img src="https://img.shields.io/static/v1?label=Arxiv&message=Sana&color=red&logo=arxiv"></a> &ensp;
   <a href="https://sana-gen.mit.edu/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
 </div>
-
-[//]: # ([![Model License]&#40;https://img.shields.io/badge/MODEL%20License-CC%20By%20NC%204.0-red.svg&#41;]&#40;MODEL_LICENSE&#41;)
 
 <p align="center" border-raduis="10px">
   <img src="asset/Sana.jpg" width="90%" alt="teaser_page1"/>
 </p>
 
-
 ## 💡 Introduction
-We introduce Sana, a text-to-image framework that can efficiently generate images up to 4096 × 4096 resolution. 
-Sana can synthesize high-resolution, high-quality images with strong text-image alignment at a remarkably fast speed, deployable on laptop GPU. 
+
+We introduce Sana, a text-to-image framework that can efficiently generate images up to 4096 × 4096 resolution.
+Sana can synthesize high-resolution, high-quality images with strong text-image alignment at a remarkably fast speed, deployable on laptop GPU.
 Core designs include:
 
 (1) [**DC-AE**](https://hanlab.mit.edu/projects/dc-ae): unlike traditional AEs, which compress images only 8×, we trained an AE that can compress images 32×, effectively reducing the number of latent tokens. \
@@ -33,12 +32,12 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
   <img src="asset/model-incremental.jpg" width="90%" alt="teaser_page2"/>
 </p>
 
-
 ## 🔥🔥 News
--  Sana code is coming soon
-- (🔥 New) [2024/10] [Demo](https://ea13ab4f5bd9c74f93.gradio.live/) is released.
-- (🔥 New) [2024/10] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
-- [2024/10] [Paper](https://arxiv.org/abs/2410.10629) is on Arxiv!
+
+- Sana code is coming soon
+- (🔥 New) \[2024/10\] [Demo](https://sana-gen.mit.edu/) is released.
+- (🔥 New) \[2024/10\] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
+- \[2024/10\] [Paper](https://arxiv.org/abs/2410.10629) is on Arxiv!
 
 ## Performance
 
@@ -59,8 +58,8 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 | SD3-medium                   | 0.28                   | 4.4         | 2.0        | 6.5×      | 11.92       | 27.83        | 0.62        | <u>84.1</u> |
 | FLUX-dev                     | 0.04                   | 23.0        | 12.0       | 1.0×      | 10.15       | 27.47        | _0.67_      | _84.0_      |
 | FLUX-schnell                 | 0.5                    | 2.1         | 12.0       | 11.6×     | 7.94        | 28.14        | **0.71**    | **84.8**    |
-| Sana-0.6B                    | 1.7                    | 0.9         | 0.6        | **39.5×** | <u>5.81</u> | 28.36        | 0.64        | 83.6        |
-| Sana-1.6B                    | 1.0                    | 1.2         | 1.6        | **23.3×** | **5.76**    | <u>28.67</u> | <u>0.66</u> | **84.8**    |
+| **Sana-0.6B**                | 1.7                    | 0.9         | 0.6        | **39.5×** | <u>5.81</u> | 28.36        | 0.64        | 83.6        |
+| **Sana-1.6B**                | 1.0                    | 1.2         | 1.6        | **23.3×** | **5.76**    | <u>28.67</u> | <u>0.66</u> | **84.8**    |
 
 ## Contents
 
@@ -100,4 +99,4 @@ We will try our best to release
 
 [//]: # (## Star History)
 
-[//]: # ([![Star History Chart]&#40;https://api.star-history.com/svg?repos=NVlabs/Sana&type=Date&#41;]&#40;https://star-history.com/#NVlabs/Sana&Date&#41;)
+[//]: # ([![Star History Chart]&#40;https://api.star-history.com/svg?repos=NVlabs/Sana&type=Date&#41;]&#40;https://star-history.com/#NVlabs/sana&Date&#41;)
