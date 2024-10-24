@@ -7,7 +7,7 @@
 <div align="center">
   <a href="https://nvlabs.github.io/Sana/"><img src="https://img.shields.io/static/v1?label=Project%20Page&message=Github&color=blue&logo=github-pages"></a> &ensp;
   <a href="https://arxiv.org/abs/2410.10629"><img src="https://img.shields.io/static/v1?label=Arxiv&message=Sana&color=red&logo=arxiv"></a> &ensp;
-  <a href="https://8876bd28ee2da4b909.gradio.live/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
+  <a href="https://sana-gen.mit.edu/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
 </div>
 
 [//]: # ([![Model License]&#40;https://img.shields.io/badge/MODEL%20License-CC%20By%20NC%204.0-red.svg&#41;]&#40;MODEL_LICENSE&#41;)
