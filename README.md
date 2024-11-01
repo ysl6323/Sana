@@ -8,7 +8,7 @@
   <a href="https://nvlabs.github.io/Sana/"><img src="https://img.shields.io/static/v1?label=Project&message=Github&color=blue&logo=github-pages"></a> &ensp;
   <a href="https://hanlab.mit.edu/projects/sana/"><img src="https://img.shields.io/static/v1?label=Page&message=MIT&color=darkred&logo=github-pages"></a> &ensp;
   <a href="https://arxiv.org/abs/2410.10629"><img src="https://img.shields.io/static/v1?label=Arxiv&message=Sana&color=red&logo=arxiv"></a> &ensp;
-  <a href="https://sana-gen.mit.edu/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
+  <a href="https://nv-sana.mit.edu/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
 </div>
 
 <p align="center" border-raduis="10px">
@@ -35,7 +35,7 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 ## 🔥🔥 News
 
 - Sana code is coming soon
-- (🔥 New) \[2024/10\] [Demo](https://sana-gen.mit.edu/) is released.
+- (🔥 New) \[2024/10\] [Demo](https://nv-sana.mit.edu/) is released.
 - (🔥 New) \[2024/10\] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
 - \[2024/10\] [Paper](https://arxiv.org/abs/2410.10629) is on Arxiv!
 
