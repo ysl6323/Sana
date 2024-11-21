@@ -33,10 +33,10 @@ def hf_download_or_fpath(path):
 
 
 def hf_download_data(
-    repo_id="Efficient-Large-Model/VILA-inference-demos",
-    filename="imagenet_cat.jpg",
+    repo_id="Efficient-Large-Model/Sana_1600M_1024px",
+    filename="checkpoints/Sana_1600M_1024px.pth",
     cache_dir=None,
-    repo_type="dataset",
+    repo_type="model",
     download_full_repo=False,
 ):
     """

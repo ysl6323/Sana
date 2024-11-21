@@ -35,6 +35,7 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 
 ## 🔥🔥 News
 
+- (🔥 New) \[2024/11\] 1.6B [Sana models](https://huggingface.co/collections/Efficient-Large-Model/sana-673efba2a57ed99843f11f9e) are released.
 - (🔥 New) \[2024/11\] Training & Inference & Metrics code are released.
 - (🔥 New) \[2024/11\] Working on [`diffusers`](https://github.com/huggingface/diffusers/pull/9982).
 - \[2024/10\] [Demo](https://nv-sana.mit.edu/) is released.
@@ -206,7 +207,7 @@ We will try our best to release
 
 - \[x\] Training code
 - \[x\] Inference code
-- \[ \] Model zoo
+- \[+\] Model zoo
 - \[ \] working on Diffusers(https://github.com/huggingface/diffusers/pull/9982)
 - \[ \] ComfyUI
 - \[ \] Laptop development
