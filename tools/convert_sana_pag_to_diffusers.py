@@ -23,7 +23,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 CTX = init_empty_weights if is_accelerate_available else nullcontext
 
 ckpt_id = "Sana"
-# https://github.com/NV-Lab/Sana/scripts/inference.py
+# https://github.com/NVlabs/Sana/blob/main/scripts/inference.py
 
 
 def main(args):

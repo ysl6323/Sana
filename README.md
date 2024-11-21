@@ -36,6 +36,7 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 ## 🔥🔥 News
 
 - (🔥 New) \[2024/11\] Training & Inference & Metrics code are released.
+- (🔥 New) \[2024/11\] Working on [`diffusers`](https://github.com/huggingface/diffusers/pull/9982).
 - \[2024/10\] [Demo](https://nv-sana.mit.edu/) is released.
 - \[2024/10\] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
 - \[2024/10\] [Paper](https://arxiv.org/abs/2410.10629) is on Arxiv!
@@ -206,7 +207,7 @@ We will try our best to release
 - \[x\] Training code
 - \[x\] Inference code
 - \[ \] Model zoo
-- \[ \] Diffusers
+- \[ \] working on Diffusers(https://github.com/huggingface/diffusers/pull/9982)
 - \[ \] ComfyUI
 - \[ \] Laptop development
 
