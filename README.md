@@ -9,6 +9,7 @@
   <a href="https://hanlab.mit.edu/projects/sana/"><img src="https://img.shields.io/static/v1?label=Page&message=MIT&color=darkred&logo=github-pages"></a> &ensp;
   <a href="https://arxiv.org/abs/2410.10629"><img src="https://img.shields.io/static/v1?label=Arxiv&message=Sana&color=red&logo=arxiv"></a> &ensp;
   <a href="https://nv-sana.mit.edu/"><img src="https://img.shields.io/static/v1?label=Demo&message=MIT&color=yellow"></a> &ensp;
+  <a href="https://discord.gg/rde6eaE5Ta"><img src="https://img.shields.io/static/v1?label=Discuss&message=Discord&color=purple&logo=discord"></a> &ensp;
 </div>
 
 <p align="center" border-raduis="10px">
@@ -34,12 +35,21 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 
 ## 🔥🔥 News
 
-- Sana code is coming soon
-- (🔥 New) \[2024/10\] [Demo](https://nv-sana.mit.edu/) is released.
-- (🔥 New) \[2024/10\] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
+- (🔥 New) \[2024/11\] Training & Inference & Metrics code are released.
+- \[2024/10\] [Demo](https://nv-sana.mit.edu/) is released.
+- \[2024/10\] [DC-AE Code](https://github.com/mit-han-lab/efficientvit/blob/master/applications/dc_ae/README.md) and [weights](https://huggingface.co/collections/mit-han-lab/dc-ae-670085b9400ad7197bb1009b) are released!
 - \[2024/10\] [Paper](https://arxiv.org/abs/2410.10629) is on Arxiv!
 
 ## Performance
+
+| Methods (1024x1024)                      | Throughput (samples/s) | Latency (s) | Params (B) | Speedup   | FID 👆      | CLIP 👆      | GenEval 👆  | DPG 👆      |
+|------------------------------|------------------------|-------------|------------|-----------|-------------|--------------|-------------|-------------|
+| FLUX-dev                     | 0.04                   | 23.0        | 12.0       | 1.0×      | 10.15       | 27.47        | _0.67_      | _84.0_      |
+| **Sana-0.6B**                | 1.7                    | 0.9         | 0.6        | **39.5×** | <u>5.81</u> | 28.36        | 0.64        | 83.6        |
+| **Sana-1.6B**                | 1.0                    | 1.2         | 1.6        | **23.3×** | **5.76**    | <u>28.67</u> | <u>0.66</u> | **84.8**    |
+
+<details>
+  <summary><h3>Click to show all</h3></summary>
 
 | Methods                      | Throughput (samples/s) | Latency (s) | Params (B) | Speedup   | FID 👆      | CLIP 👆      | GenEval 👆  | DPG 👆      |
 |------------------------------|------------------------|-------------|------------|-----------|-------------|--------------|-------------|-------------|
@@ -61,27 +71,148 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 | **Sana-0.6B**                | 1.7                    | 0.9         | 0.6        | **39.5×** | <u>5.81</u> | 28.36        | 0.64        | 83.6        |
 | **Sana-1.6B**                | 1.0                    | 1.2         | 1.6        | **23.3×** | **5.76**    | <u>28.67</u> | <u>0.66</u> | **84.8**    |
 
+</details>
+
 ## Contents
 
+- [Env](#-1-dependencies-and-installation)
+- [Demo](#-3-how-to-inference)
+- [Training](#-2-how-to-train)
+- [Testing](#-4-how-to-inference--test-metrics-fid-clip-score-geneval-dpg-bench-etc)
 - [TODO](#to-do-list)
 - [Citation](#bibtex)
 
-## 💪To-Do List
+# 🔧 1. Dependencies and Installation
+
+- Python >= 3.10.0 (Recommend to use [Anaconda](https://www.anaconda.com/download/#linux) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html))
+- [PyTorch >= 2.0.1+cu12.1](https://pytorch.org/)
+
+```bash
+git clone https://github.com/NVlabs/Sana.git
+cd Sana
+
+./environment_setup.sh sana
+# or you can install each components step by step following environment_setup.sh
+```
+
+# 💻 2. How to Play with Sana (Inference)
+
+## 💰Hardware requirement
+
+- 9GB VRAM is required for 0.6B model and 12GB VRAM for 1.6B model. Our later quantization version will require less than 8GB for inference.
+- All the tests are done on A100 GPUs. Different GPU version may be different.
+
+## 🔛 Quick start with [Gradio](https://www.gradio.app/guides/quickstart)
+
+```bash
+# official online demo
+DEMO_PORT=15432 \
+pyhton app/sana_app.py \
+      --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
+      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
+```
+
+```python
+import torch
+from app.sana_pipeline import SanaPipeline
+from torchvision.utils import save_image
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+generator = torch.Generator(device=device).manual_seed(42)
+
+sana = SanaPipeline("configs/sana_config/1024ms/Sana_1600M_img1024.yaml")
+sana.from_pretrained("hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth")
+prompt = 'a cyberpunk cat with a neon sign that says "Sana"'
+
+image = sana(
+    prompt=prompt,
+    height=1024,
+    width=1024,
+    guidance_scale=5.0,
+    pag_guidance_scale=2.0,
+    num_inference_steps=18,
+    generator=generator,
+)
+save_image(image, 'output/sana.png', nrow=1, normalize=True, value_range=(-1, 1))
+```
+
+## 🔛 Run inference with TXT or JSON files
+
+```bash
+# Run samples in a txt file
+python scripts/inference.py \
+      --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
+      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
+      --txt_file=asset/samples_mini.txt
+
+# Run samples in a json file
+python scripts/inference.py \
+      --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
+      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
+      --json_file=asset/samples_mini.json
+```
+
+where each line of [`asset/samples_mini.txt`](asset/samples_mini.txt) contains a prompt to generate
+
+# 🔥 3. How to Train Sana
+
+## 💰Hardware requirement
+
+- 32GB VRAM is required for both 0.6B and 1.6B model's training
+
+We provide a training example here and you can also select your desired config file from [config files dir](configs/sana_config) based on your data structure.
+
+To launch Sana training, you will first need to prepare data in the following formats
+
+```bash
+asset/example_data
+├── AAA.txt
+├── AAA.png
+├── BCC.txt
+├── BCC.png
+├── ......
+├── CCC.txt
+└── CCC.png
+```
+
+Then Sana's training can be launched via
+
+```bash
+# Example of training Sana 0.6B with 512x512 resolution
+bash train_scripts/train.sh \
+  configs/sana_config/512ms/Sana_600M_img512.yaml \
+  --data.data_dir="[asset/example_data]" \
+  --data.type=SanaImgDataset \
+  --model.multi_scale=false \
+  --train.train_batch_size=32
+
+# Example of training Sana 1.6B with 1024x1024 resolution
+bash train_scripts/train.sh \
+  configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
+  --data.data_dir="[asset/example_data]" \
+  --data.type=SanaImgDataset \
+  --model.multi_scale=false \
+  --train.train_batch_size=8
+```
+
+# 💻 4. Metric toolkit
+
+Refer to [Toolkit Manual](asset/docs/metrics_toolkit.md).
+
+# 💪To-Do List
 
 We will try our best to release
 
-- \[ \] Training code
-- \[ \] Inference code
+- \[x\] Training code
+- \[x\] Inference code
 - \[ \] Model zoo
 - \[ \] Diffusers
 - \[ \] ComfyUI
+- \[ \] Laptop development
 
 # 🤗Acknowledgements
 
 - Thanks to [PixArt-α](https://github.com/PixArt-alpha/PixArt-alpha), [PixArt-Σ](https://github.com/PixArt-alpha/PixArt-sigma) and [Efficient-ViT](https://github.com/mit-han-lab/efficientvit) for their wonderful work and codebase!
-
-[//]: # (- Thanks to [Diffusers]&#40;https://github.com/huggingface/diffusers&#41; for their wonderful technical support and awesome collaboration!)
-[//]: # (- Thanks to [Hugging Face]&#40;https://github.com/huggingface&#41; for sponsoring the nicely demo!)
 
 # 📖BibTeX
 
@@ -96,7 +227,3 @@ We will try our best to release
       url={https://arxiv.org/abs/2410.10629},
     }
 ```
-
-[//]: # (## Star History)
-
-[//]: # ([![Star History Chart]&#40;https://api.star-history.com/svg?repos=NVlabs/Sana&type=Date&#41;]&#40;https://star-history.com/#NVlabs/sana&Date&#41;)
