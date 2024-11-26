@@ -179,6 +179,7 @@ def get_args():
     parser.add_argument("--seed", default=42, type=int)
     parser.add_argument("--step", default=-1, type=int)
     parser.add_argument("--custom_image_size", default=None, type=int)
+    parser.add_argument("--share", action="store_true")
     parser.add_argument(
         "--shield_model_path",
         type=str,
@@ -487,4 +488,4 @@ with gr.Blocks(css=css, title="Sana") as demo:
     )
 
 if __name__ == "__main__":
-    demo.queue(max_size=20).launch(server_name="0.0.0.0", server_port=DEMO_PORT, debug=False, share=False)
+    demo.queue(max_size=20).launch(server_name="0.0.0.0", server_port=DEMO_PORT, debug=False, share=args.share)

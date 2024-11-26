@@ -110,8 +110,9 @@ cd Sana
 # official online demo
 DEMO_PORT=15432 \
 python app/app_sana.py \
-      --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
-      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
+    --share \
+    --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
+    --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
 ```
 
 ```python
@@ -138,19 +139,39 @@ image = sana(
 save_image(image, 'output/sana.png', nrow=1, normalize=True, value_range=(-1, 1))
 ```
 
+<details>
+<summary><h2>Run Sana (Inference) with Docker</h2></summary>
+
+```
+# Pull related models
+huggingface-cli download google/gemma-2b-it 
+huggingface-cli download google/shieldgemma-2b
+huggingface-cli download mit-han-lab/dc-ae-f32c32-sana-1.0
+huggingface-cli download Efficient-Large-Model/Sana_1600M_1024px
+
+# Run with docker
+docker build . -t sana
+docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 \
+    -v ~/.cache:/root/.cache \
+    sana
+```
+
+</details>
+
+
 ## 🔛 Run inference with TXT or JSON files
 
 ```bash
 # Run samples in a txt file
 python scripts/inference.py \
       --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
-      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
+      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth \
       --txt_file=asset/samples_mini.txt
 
 # Run samples in a json file
 python scripts/inference.py \
       --config=configs/sana_config/1024ms/Sana_1600M_img1024.yaml \
-      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth
+      --model_path=hf://Efficient-Large-Model/Sana_1600M_1024px/checkpoints/Sana_1600M_1024px.pth \
       --json_file=asset/samples_mini.json
 ```
 
