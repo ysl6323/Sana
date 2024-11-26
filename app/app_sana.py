@@ -115,6 +115,12 @@ NUM_IMAGES_PER_PROMPT = 1
 INFER_SPEED = 0
 
 
+def norm_ip(img, low, high):
+    img.clamp_(min=low, max=high)
+    img.sub_(low).div_(max(high - low, 1e-5))
+    return img
+
+
 def open_db():
     db = sqlite3.connect(COUNTER_DB)
     db.execute("CREATE TABLE IF NOT EXISTS counter(app CHARS PRIMARY KEY UNIQUE, value INTEGER)")
@@ -285,13 +291,7 @@ def generate(
         img = [save_image_sana(img, seed, save_img=save_image) for img in images]
         print(img)
     else:
-        if num_imgs > 1:
-            nrow = 2
-        else:
-            nrow = 1
-        img = make_grid(images, nrow=nrow, normalize=True, value_range=(-1, 1))
-        img = img.mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to("cpu", torch.uint8).numpy()
-        img = [Image.fromarray(img.astype(np.uint8))]
+        img = [Image.fromarray(norm_ip(img, -1, 1).mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to("cpu", torch.uint8).numpy().astype(np.uint8)) for img in images]
 
     torch.cuda.empty_cache()
 
