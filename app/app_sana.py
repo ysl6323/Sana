@@ -291,7 +291,19 @@ def generate(
         img = [save_image_sana(img, seed, save_img=save_image) for img in images]
         print(img)
     else:
-        img = [Image.fromarray(norm_ip(img, -1, 1).mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to("cpu", torch.uint8).numpy().astype(np.uint8)) for img in images]
+        img = [
+            Image.fromarray(
+                norm_ip(img, -1, 1)
+                .mul(255)
+                .add_(0.5)
+                .clamp_(0, 255)
+                .permute(1, 2, 0)
+                .to("cpu", torch.uint8)
+                .numpy()
+                .astype(np.uint8)
+            )
+            for img in images
+        ]
 
     torch.cuda.empty_cache()
 
