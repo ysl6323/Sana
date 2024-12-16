@@ -434,6 +434,11 @@ def get_1d_sincos_pos_embed_from_grid(embed_dim, pos):
 #                                   Sana Configs                              #
 #################################################################################
 @MODELS.register_module()
+def Sana_200M_P1_D20(**kwargs):
+    return Sana(depth=20, hidden_size=768, patch_size=1, num_heads=16, **kwargs)
+
+
+@MODELS.register_module()
 def Sana_600M_P1_D28(**kwargs):
     return Sana(depth=28, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
