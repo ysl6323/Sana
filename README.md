@@ -87,10 +87,10 @@ As a result, Sana-0.6B is very competitive with modern giant diffusion model (e.
 ## Contents
 
 - [Env](#-1-dependencies-and-installation)
-- [Demo](#-3-how-to-inference)
+- [Demo](#-2-how-to-play-with-sana-inference)
 - [Model Zoo](asset/docs/model_zoo.md)
-- [Training](#-2-how-to-train)
-- [Testing](#-4-how-to-inference--test-metrics-fid-clip-score-geneval-dpg-bench-etc)
+- [Training](#-3-how-to-train-sana)
+- [Testing](#-4-metric-toolkit)
 - [TODO](#to-do-list)
 - [Citation](#bibtex)
 
@@ -129,10 +129,19 @@ python app/app_sana.py \
 
 ### 1. How to use `SanaPipeline` with `🧨diffusers`
 
-1. Run `pip install -U diffusers` before use Sana in diffusers
-1. Make sure to use variant(bf16, fp16, fp32) and torch_dtype(torch.float16, torch.bfloat16, torch.float32) to specify the precision you want.
+> \[!IMPORTANT\]
+> Upgrade your `diffusers>=0.32.0.dev` to make the `SanaPipeline` and `SanaPAGPipeline` available!
+>
+> ```bash
+> pip install git+https://github.com/huggingface/diffusers
+> ```
+>
+> Make sure to specify `pipe.transformer` to default `torch_dtype` and `variant` according to [Model Card](asset/docs/model_zoo.md).
+>
+> Set `pipe.text_encoder` to BF16 and `pipe.vae` to FP32 or BF16. For more info, [docs](https://huggingface.co/docs/diffusers/main/en/api/pipelines/sana#sanapipeline) are here.
 
 ```python
+# run `pip install git+https://github.com/huggingface/diffusers` before use Sana in diffusers
 import torch
 from diffusers import SanaPipeline
 
@@ -162,7 +171,7 @@ image[0].save("sana.png")
 ### 2. How to use `SanaPAGPipeline` with `🧨diffusers`
 
 ```python
-# run `pip install -U diffusers` before use Sana in diffusers
+# run `pip install git+https://github.com/huggingface/diffusers` before use Sana in diffusers
 import torch
 from diffusers import SanaPAGPipeline
 
@@ -262,7 +271,7 @@ where each line of [`asset/samples_mini.txt`](asset/samples_mini.txt) contains a
 
 We provide a training example here and you can also select your desired config file from [config files dir](configs/sana_config) based on your data structure.
 
-To launch Sana training, you will first need to prepare data in the following formats
+To launch Sana training, you will first need to prepare data in the following formats. [Here](asset/example_data) is an example for the data structure for reference.
 
 ```bash
 asset/example_data
@@ -306,11 +315,16 @@ We will try our best to release
 
 - \[x\] Training code
 - \[x\] Inference code
-- \[+\] Model zoo
+- \[x\] Model zoo
 - \[x\] ComfyUI
 - \[x\] DC-AE Diffusers
-- \[ \] Sana working on Diffusers(https://github.com/huggingface/diffusers/pull/9982)
-- \[ \] Laptop development
+- \[x\] Sana merged in Diffusers(https://github.com/huggingface/diffusers/pull/9982)
+- \[ \] LoRA training by [@paul](https://github.com/sayakpaul)(`diffusers`: https://github.com/huggingface/diffusers/pull/10234)
+- \[ \] ControlNet (train & inference & models)
+- \[ \] 8bit / 4bit Laptop development
+- \[ \] Larger model size
+- \[ \] Better re-construction F32/F64 VAEs.
+- \[ \] **Sana1.5 (Focus on: Human body / Human face / Text rendering / Realism / Efficiency)**
 
 # 🤗Acknowledgements
 
