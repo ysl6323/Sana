@@ -52,6 +52,12 @@ from diffusion.utils.lr_scheduler import build_lr_scheduler
 from diffusion.utils.misc import DebugUnderflowOverflow, init_random_seed, read_config, set_random_seed
 from diffusion.utils.optimizer import auto_scale_lr, build_optimizer
 
+import cProfile
+import pstats
+from io import StringIO
+import pandas as pd
+
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
@@ -973,5 +979,37 @@ def main(cfg: SanaConfig) -> None:
 
 
 if __name__ == "__main__":
+    # pr = cProfile.Profile()
+    # pr.enable()  # 开始性能分析
 
+    # main()  # 调用主函数
+
+    # pr.disable()  # 停止性能分析
+    # s = StringIO()
+    # ps = pstats.Stats(pr, stream=s)
+    
+    # # 将结果转换为 DataFrame 以便于处理和排序
+    # stats = []
+    
+    # for stat in ps.stats:
+    #     values = ps.stats[stat]
+    #     if len(values) >= 5:  # 确保有足够的值
+    #         ncalls, tottime, cumtime, *filename_lineno_func = values
+            
+    #         # 只关注时长信息
+    #         filename = filename_lineno_func[0] if len(filename_lineno_func) > 0 else "Unknown"
+    #         line_no = filename_lineno_func[1] if len(filename_lineno_func) > 1 else "Unknown"
+            
+    #         # 将结果添加到 stats 列表中
+    #         stats.append((filename, line_no, tottime, cumtime))
+
+    # # 创建 DataFrame
+    # df = pd.DataFrame(stats, columns=["Filename", "Line No.", "Total Time", "Cumulative Time"])
+    
+    # # 排序并过滤结果，例如只显示总时间大于0.001秒的函数
+    # df = df[df["Total Time"] > 0.001].sort_values(by="Cumulative Time", ascending=False)
+    
+    # # 输出结果
+    # print(df)
+    # df.to_csv('time_analysis.csv', index=False)
     main()
