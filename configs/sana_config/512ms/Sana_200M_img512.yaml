@@ -21,12 +21,12 @@ model:
   image_size: 512
   mixed_precision: fp16
   fp32_attention: false
-  load_from: /data/shanglinyuan/pretrined_weights/epoch_62_step_40000.pth
+  load_from:
   resume_from:
   aspect_ratio_type: ASPECT_RATIO_512
   multi_scale: false
   #pe_interpolation: 1.
-  attn_type: flash
+  attn_type: vanilla
   linear_head_dim: 32
   ffn_type: mbconvpreglu
   mlp_acts:
@@ -79,7 +79,7 @@ train:
   num_workers: 2
   seed: 1031
   train_batch_size: 24
-  num_epochs: 100
+  num_epochs: 1
   gradient_accumulation_steps: 1
   grad_checkpointing: true
   gradient_clip: 0.1
