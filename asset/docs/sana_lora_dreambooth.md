@@ -22,12 +22,6 @@ cd diffusers
 pip install -e .
 ```
 
-Then cd in the `examples/dreambooth` folder and run
-
-```bash
-pip install -r requirements_sana.txt
-```
-
 And initialize an [🤗Accelerate](https://github.com/huggingface/accelerate/) environment with:
 
 ```bash
@@ -59,7 +53,7 @@ Let's first download it locally:
 ```python
 from huggingface_hub import snapshot_download
 
-local_dir = "./dog"
+local_dir = "data/dreambooth/dog"
 snapshot_download(
     "diffusers/dog-example",
     local_dir=local_dir, repo_type="dataset",
@@ -71,14 +65,21 @@ This will also allow us to push the trained LoRA parameters to the Hugging Face 
 
 [Here is the Model Card](model_zoo.md) for you to choose the desired pre-trained models and set it to `MODEL_NAME`.
 
-Now, we can launch training using:
+Now, we can launch training using [file here](../../train_scripts/train_lora.sh):
 
 ```bash
-export MODEL_NAME="Efficient-Large-Model/Sana_1600M_1024px_diffusers"
-export INSTANCE_DIR="dog"
+bash train_scripts/train_lora.sh
+```
+
+or you can run it locally:
+
+```bash
+export MODEL_NAME="Efficient-Large-Model/Sana_1600M_1024px_BF16_diffusers"
+export INSTANCE_DIR="data/dreambooth/dog"
 export OUTPUT_DIR="trained-sana-lora"
 
-accelerate launch train_dreambooth_lora_sana.py \
+accelerate launch --num_processes 8 --main_process_port 29500 --gpu_ids 0,1,2,3 \
+  train_scripts/train_dreambooth_lora_sana.py \
   --pretrained_model_name_or_path=$MODEL_NAME  \
   --instance_data_dir=$INSTANCE_DIR \
   --output_dir=$OUTPUT_DIR \
@@ -93,7 +94,7 @@ accelerate launch train_dreambooth_lora_sana.py \
   --lr_scheduler="constant" \
   --lr_warmup_steps=0 \
   --max_train_steps=500 \
-  --validation_prompt="A photo of sks dog in a bucket" \
+  --validation_prompt="A photo of sks dog in a pond, yarn art style" \
   --validation_epochs=25 \
   --seed="0" \
   --push_to_hub
@@ -125,3 +126,19 @@ We provide several options for optimizing memory optimization:
 - `--use_8bit_adam`: When enabled, we will use the 8bit version of AdamW provided by the `bitsandbytes` library.
 
 Refer to the [official documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/sana) of the `SanaPipeline` to know more about the models available under the SANA family and their preferred dtypes during inference.
+
+## Samples
+
+We show some samples during Sana-LoRA fine-tuning process below.
+
+<p align="center" border-raduis="10px">
+  <img src="https://nvlabs.github.io/Sana/asset/content/dreambooth/step0.jpg" width="90%" alt="sana-lora-step0"/>
+  <br>
+  <em> training samples at step=0 </em>
+</p>
+
+<p align="center" border-raduis="10px">
+  <img src="https://nvlabs.github.io/Sana/asset/content/dreambooth/step500.jpg" width="90%" alt="sana-lora-step500"/>
+  <br>
+  <em> training samples at step=500 </em>
+</p>
