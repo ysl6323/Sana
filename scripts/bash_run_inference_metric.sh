@@ -2,8 +2,8 @@
 output_dir=output
 
 # ============ start of custom code block ==========
-config_file=''
-model_paths_file=''
+config_file='/data/shanglinyuan/Sana/configs/sana_config/512ms/Sana_200M_img512.yaml'
+model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_80_step_25000.pth'
 
 if [ -n "$1" ]; then
   config_file=$1
@@ -18,9 +18,9 @@ default_step=20
 default_bs=50    # 1
 default_sample_nums=30000
 default_sampling_algo="flow_dpm-solver"
-json_file="data/test/PG-eval-data/MJHQ-30K/meta_data.json"
+json_file="/data/shanglinyuan/Datasets/Sana_training_dataset/meta_data.json"
 default_add_label=''
-default_dataset='MJHQ-30K'
+default_dataset='CelebA-HQ-30K'
 
 default_img_size=512  # 1024
 default_fid_suffix_label='30K_bs50_Flow_DPM20'  # suffix of the line chart on wandb
