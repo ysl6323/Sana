@@ -150,11 +150,11 @@ class TrainingConfig(BaseConfig):
     valid_prompt_embed_root: str = "output/tmp_embed/"
     validation_prompts: List[str] = field(
         default_factory=lambda: [
-            "dog",
-            "portrait photo of a girl, photograph, highly detailed face, depth of field",
-            "Self-portrait oil painting, a beautiful cyborg with golden hair, 8k",
-            "Astronaut in a jungle, cold color palette, muted colors, detailed, 8k",
-            "A photo of beautiful mountain with realistic sunset and blue lake, highly detailed, masterpiece",
+            "This young, attractive woman appears to be smiling.",
+            "A young, attractive woman smiles with big lips, high cheekbones, and narrow eyes, wearing heavy makeup, lipstick, and earrings.",
+            "The young woman appears to be attractive, with wavy hair and arched eyebrows, wearing heavy makeup and bold lipstick.",
+            "A young woman with bangs and wavy hair, mouth slightly open, looking friendly and approachable while wearing lipstick.",
+            "The person is attractive, young, smiling with pale skin, big lips, high cheekbones, arched eyebrows, black hair, wavy hair, pointy nose, and heavy makeup adorned by earrings and lipstick.",
         ]
     )
     local_save_vis: bool = False

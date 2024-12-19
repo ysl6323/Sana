@@ -2,7 +2,7 @@
 set -e
 
 work_dir=output/debug
-np=2
+np=4
 
 
 if [[ $1 == *.yaml ]]; then
@@ -13,7 +13,7 @@ else
     echo "Only support .yaml files, but get $1. Set to --config_path=$config"
 fi
 
-TRITON_PRINT_AUTOTUNING=1 \
+TRITON_PRINT_AUTOTUNING=1 HF_ENDPOINT=https://hf-mirror.com\
     torchrun --nproc_per_node=$np --master_port=15432 \
         train_scripts/train.py \
         --config_path=$config \
