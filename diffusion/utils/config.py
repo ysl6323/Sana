@@ -153,8 +153,8 @@ class TrainingConfig(BaseConfig):
             "This young, attractive woman appears to be smiling.",
             "A young, attractive woman smiles with big lips, high cheekbones, and narrow eyes, wearing heavy makeup, lipstick, and earrings.",
             "The young woman appears to be attractive, with wavy hair and arched eyebrows, wearing heavy makeup and bold lipstick.",
-            "A young woman with bangs and wavy hair, mouth slightly open, looking friendly and approachable while wearing lipstick.",
-            "The person is attractive, young, smiling with pale skin, big lips, high cheekbones, arched eyebrows, black hair, wavy hair, pointy nose, and heavy makeup adorned by earrings and lipstick.",
+            "A middle-aged man with a big nose and receding hairline, wearing glasses, has gray hair and appears concerned.",
+            "A young man has sideburns, bushy eyebrows, a pointy nose, and bags under his eyes, with a mustache.",
         ]
     )
     local_save_vis: bool = False

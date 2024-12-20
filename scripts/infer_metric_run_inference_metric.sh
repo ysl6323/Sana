@@ -153,7 +153,7 @@ clipscore=${clipscore:-true}
 imagereward=${imagereward:-false}
 dpg=${dpg:-false}
 
-np=${np:-8}
+np=${np:-4}
 step=${step:-$default_step}
 bs=${bs:-$default_bs}
 dataset=${dataset:-'custom'}

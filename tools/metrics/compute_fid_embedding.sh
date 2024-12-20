@@ -54,14 +54,14 @@ echo "log_fid: $log_fid"
 echo "log_suffix_label: $log_suffix_label"
 echo "tracker_pattern: $tracker_pattern"
 
-JSON_PATH="data/test/PG-eval-data/MJHQ-30K/meta_data.json"
-refer_path="data/test/PG-eval-data/MJHQ-30K/MJHQ_30K_${img_size}px_fid_embeddings_${sample_nums}.npz"
+JSON_PATH="data/shanglinyuan/Datasets/Sana_training_dataset/meta_data.json"
+refer_path="data/shanglinyuan/Datasets/CelebA-HQ-30K_${img_size}px_fid_embeddings_${sample_nums}.npz"
 
 if [ ! -f "$refer_path" ]; then
   # =============== save specific fid embeddings if not exists ==================
   echo "==================== saving embeddings ===================="
-  IMG_PATH="data/test/PG-eval-data/MJHQ-30K/imgs"
-  OUTPUT_PATH="data/test/PG-eval-data/MJHQ-30K/MJHQ_30K_${img_size}px_fid_embeddings_${sample_nums}.npz"
+  IMG_PATH="data/shanglinyuan/Datasets/Sana_training_dataset"
+  OUTPUT_PATH="data/shanglinyuan/Datasets/CelebA-HQ-30K_${img_size}px_fid_embeddings_${sample_nums}.npz"
   echo "Saving reference embedding to $OUTPUT_PATH"
   CUDA_VISIBLE_DEVICES=0 \
       python $py --img_size $img_size --path $JSON_PATH $OUTPUT_PATH \

@@ -18,7 +18,7 @@ default_step=20
 default_bs=50    # 1
 default_sample_nums=30000
 default_sampling_algo="flow_dpm-solver"
-json_file="/data/shanglinyuan/Datasets/Sana_training_dataset/meta_data.json"
+json_file="/data/shanglinyuan/Datasets/metric_meta_data.json"
 default_add_label=''
 default_dataset='CelebA-HQ-30K'
 
