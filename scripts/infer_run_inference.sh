@@ -88,6 +88,8 @@ done
 
 inference_script=${inference_script:-"scripts/inference.py"}
 
+work_dir="output/inference"
+
 np=${np:-$default_np}
 step=${step:-$default_step}
 bs=${bs:-$default_bs}

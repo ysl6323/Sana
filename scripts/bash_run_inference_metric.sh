@@ -146,7 +146,7 @@ bash scripts/infer_metric_run_inference_metric.sh $config_file $model_paths_file
       --log_fid=$log_fid --log_clip_score=$log_clip_score \
       --output_dir=$output_dir --auto_ckpt=$auto_ckpt --sampling_algo=$sampling_algo \
       --auto_ckpt_interval=$auto_ckpt_interval --tracker_pattern=$tracker_pattern \
-      --ablation_key=$ablation_key --ablation_selections="$ablation_selections --np=4"
+      --ablation_key=$ablation_key --ablation_selections="$ablation_selections --np=1"
 EOF
 
 echo $cmd '\n'

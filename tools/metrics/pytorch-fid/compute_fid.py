@@ -142,17 +142,17 @@ def compute_statistics_of_path(path, model, batch_size, dims, device, num_worker
             for k in all_lines:
                 v = data_dict[k]
                 if "PG-eval-data" in args.img_path:
-                    img_path = os.path.join(args.img_path, v["category"], f"{k}.jpg")
+                    img_path = os.path.join(args.img_path, v["category"], f"{k}")
                 else:
-                    img_path = os.path.join(args.img_path, args.exp_name, f"{k}.jpg")
+                    img_path = os.path.join(args.img_path, f"{k}")
                 files.append(img_path)
         elif isinstance(all_lines, dict):
             assert sample_nums >= 30_000, ValueError(f"{sample_nums} is not supported for json files")
             for k, v in all_lines.items():
                 if "PG-eval-data" in args.img_path:
-                    img_path = os.path.join(args.img_path, v["category"], f"{k}.jpg")
+                    img_path = os.path.join(args.img_path, v["category"], f"{k}")
                 else:
-                    img_path = os.path.join(args.img_path, args.exp_name, f"{k}.jpg")
+                    img_path = os.path.join(args.img_path, f"{k}")
                 files.append(img_path)
 
         files = sorted(files)

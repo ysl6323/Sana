@@ -356,6 +356,7 @@ if __name__ == "__main__":
             if args.model_path.startswith("/")
             else os.path.join(*args.model_path.split("/")[:-2])
         )
+        # work_dir = "output/inference"
         img_save_dir = os.path.join(str(work_dir), "vis")
     else:
         img_save_dir = args.work_dir
@@ -443,6 +444,7 @@ if __name__ == "__main__":
         os.makedirs(save_root, exist_ok=True)
         if args.if_save_dirname and args.gpu_id == 0:
             # save at work_dir/metrics/tmp_xxx.txt for metrics testing
+            work_dir = "output/inference"
             with open(f"{work_dir}/metrics/tmp_{dataset}_{time.time()}.txt", "w") as f:
                 print(f"save tmp file at {work_dir}/metrics/tmp_{dataset}_{time.time()}.txt")
                 f.write(os.path.basename(save_root))
