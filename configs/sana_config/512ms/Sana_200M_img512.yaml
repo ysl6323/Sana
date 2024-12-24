@@ -27,7 +27,7 @@ model:
   multi_scale: false
   #pe_interpolation: 1.
   attn_type: vanilla
-  linear_head_dim: 32
+  linear_head_dim: 48
   ffn_type: mbconvpreglu
   mlp_acts:
     - silu
@@ -52,7 +52,7 @@ text_encoder:
   y_norm_scale_factor: 0.01
   model_max_length: 300
   # CHI
-  chi_prompt:
+  chi_prompt: 
     # - 'Given a user prompt, generate an "Enhanced prompt" that provides detailed visual descriptions suitable for image generation. Evaluate the level of detail in the user prompt:'
     # - '- If the prompt is simple, focus on adding specifics about colors, shapes, sizes, textures, and spatial relationships to create vivid and concrete scenes.'
     # - '- If the prompt is already detailed, refine and enhance the existing details slightly without overcomplicating.'
@@ -63,7 +63,7 @@ text_encoder:
     # - 'User Prompt: '
     # - 'Please reconstruct the following description of a face, making it more concise while retaining all the main features and emotional expression:'
     # - 'Description: '
-    - ''
+    - 'This is a human face. '
 # Sana schedule Flow
 scheduler:
   predict_v: true
@@ -80,7 +80,7 @@ train:
   num_workers: 4
   seed: 1031
   train_batch_size: 24
-  num_epochs: 100
+  num_epochs: 80
   gradient_accumulation_steps: 1
   grad_checkpointing: true
   gradient_clip: 0.1

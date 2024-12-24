@@ -444,7 +444,7 @@ if __name__ == "__main__":
         os.makedirs(save_root, exist_ok=True)
         if args.if_save_dirname and args.gpu_id == 0:
             # save at work_dir/metrics/tmp_xxx.txt for metrics testing
-            work_dir = "output/inference"
+            # work_dir = "output/inference"
             with open(f"{work_dir}/metrics/tmp_{dataset}_{time.time()}.txt", "w") as f:
                 print(f"save tmp file at {work_dir}/metrics/tmp_{dataset}_{time.time()}.txt")
                 f.write(os.path.basename(save_root))

@@ -3,7 +3,7 @@ output_dir=output
 
 # ============ start of custom code block ==========
 config_file='/data/shanglinyuan/Sana/configs/sana_config/512ms/Sana_200M_img512.yaml'
-model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_80_step_25000.pth'
+model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_80_step_25041.pth'
 
 if [ -n "$1" ]; then
   config_file=$1
