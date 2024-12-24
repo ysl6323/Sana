@@ -3,7 +3,7 @@ output_dir=output
 
 # ============ start of custom code block ==========
 config_file='/data/shanglinyuan/Sana/configs/sana_config/512ms/Sana_200M_img512.yaml'
-model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_80_step_25041.pth'
+model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_15_step_5000.pth'
 
 if [ -n "$1" ]; then
   config_file=$1
@@ -15,7 +15,7 @@ fi
 # ============ end of custom code block ===========
 
 default_step=20
-default_bs=50    # 1
+default_bs=16    # 1
 default_sample_nums=30000
 default_sampling_algo="flow_dpm-solver"
 json_file="/data/shanglinyuan/Datasets/metric_meta_data.json"
@@ -146,7 +146,7 @@ bash scripts/infer_metric_run_inference_metric.sh $config_file $model_paths_file
       --log_fid=$log_fid --log_clip_score=$log_clip_score \
       --output_dir=$output_dir --auto_ckpt=$auto_ckpt --sampling_algo=$sampling_algo \
       --auto_ckpt_interval=$auto_ckpt_interval --tracker_pattern=$tracker_pattern \
-      --ablation_key=$ablation_key --ablation_selections="$ablation_selections --np=1"
+      --ablation_key=$ablation_key --ablation_selections="$ablation_selections --np=4"
 EOF
 
 echo $cmd '\n'

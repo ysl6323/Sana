@@ -395,6 +395,7 @@ class Attention(Attention_):
         use_fp32_attention = getattr(self, "fp32_attention", False)
         if use_fp32_attention:
             q, k = q.float(), k.float()
+            v = v.float()
 
         # with torch.cuda.amp.autocast(enabled=not use_fp32_attention):
         #     attn = (q @ k.transpose(-2, -1)) * self.scale

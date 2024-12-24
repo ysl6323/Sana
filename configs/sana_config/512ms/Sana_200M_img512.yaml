@@ -48,6 +48,7 @@ vae:
 # text encoder
 text_encoder:
   text_encoder_name: Qwen2-0.5B-Instruct
+  caption_channels: 896
   y_norm: true
   y_norm_scale_factor: 0.01
   model_max_length: 300
@@ -80,7 +81,7 @@ train:
   num_workers: 4
   seed: 1031
   train_batch_size: 24
-  num_epochs: 80
+  num_epochs: 100
   gradient_accumulation_steps: 1
   grad_checkpointing: true
   gradient_clip: 0.1
@@ -108,3 +109,12 @@ train:
   online_metric: false
   eval_metric_step: 2000
   online_metric_dir: metric_helper
+work_dir: output/debug
+resume_from: latest
+load_from: null
+debug: false
+caching: false
+report_to: tensorboard
+tracker_project_name: t2i-evit-baseline
+name: tmp
+loss_report_name: loss

@@ -330,9 +330,9 @@ if __name__ == "__main__":
             if args.model_path.startswith("/")
             else os.path.join(*args.model_path.split("/")[:-2])
         )
-        # work_dir = "output/inference"
         img_save_dir = os.path.join(str(work_dir), "vis")
     else:
+        work_dir = args.work_dir
         img_save_dir = args.work_dir
 
     logger.info(colored(f"Saving images at {img_save_dir}", "green"))
@@ -383,7 +383,6 @@ if __name__ == "__main__":
         return guidance_type
 
     dataset = "MJHQ-30K" if args.json_file and "MJHQ-30K" in args.json_file else args.dataset
-    # dataset = args.dataset
     if args.ablation_selections and args.ablation_key:
         for ablation_factor in args.ablation_selections:
             setattr(args, args.ablation_key, eval(ablation_factor))
@@ -420,7 +419,6 @@ if __name__ == "__main__":
         if args.if_save_dirname and args.gpu_id == 0:
             os.makedirs(f"{work_dir}/metrics", exist_ok=True)
             # save at work_dir/metrics/tmp_xxx.txt for metrics testing
-            # work_dir = "output/inference"
             with open(f"{work_dir}/metrics/tmp_{dataset}_{time.time()}.txt", "w") as f:
                 print(f"save tmp file at {work_dir}/metrics/tmp_{dataset}_{time.time()}.txt")
                 f.write(os.path.basename(save_root))
