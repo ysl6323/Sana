@@ -107,7 +107,7 @@ def visualize(config, args, model, items, bs, sample_steps, cfg_scale, pag_scale
             latent_size_h, latent_size_w = latent_size, latent_size
 
         # check exists
-        save_file_name = f"{chunk[0]}.jpg" if dict_prompt else f"{prompts[0][:100]}.jpg"
+        save_file_name = f"{chunk[0]}" if dict_prompt else f"{prompts[0][:100]}"
         save_path = os.path.join(save_root, save_file_name)
         if os.path.exists(save_path):
             # make sure the noise is totally same
@@ -215,7 +215,7 @@ def visualize(config, args, model, items, bs, sample_steps, cfg_scale, pag_scale
 
         os.umask(0o000)
         for i, sample in enumerate(samples):
-            save_file_name = f"{chunk[i]}.jpg" if dict_prompt else f"{prompts[i][:100]}.jpg"
+            save_file_name = f"{chunk[i]}" if dict_prompt else f"{prompts[i][:100]}"
             save_path = os.path.join(save_root, save_file_name)
             save_image(sample, save_path, nrow=1, normalize=True, value_range=(-1, 1))
 
@@ -333,7 +333,7 @@ if __name__ == "__main__":
         img_save_dir = os.path.join(str(work_dir), "vis")
     else:
         work_dir = args.work_dir
-        img_save_dir = args.work_dir
+        img_save_dir = os.path.join(str(work_dir), "vis")
 
     logger.info(colored(f"Saving images at {img_save_dir}", "green"))
     dict_prompt = args.json_file is not None

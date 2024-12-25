@@ -46,8 +46,8 @@ echo "sample_nums: $sample_nums"
 echo "log_clip_score: $log_clip_score"
 echo "tracker_pattern: $tracker_pattern"
 
-IMG_PATH="data/test/PG-eval-data/MJHQ-30K/meta_data.json"
-TXT_PATH="data/test/PG-eval-data/MJHQ-30K/meta_data.json"
+IMG_PATH="/data/shanglinyuan/Datasets/metric_meta_data.json"
+TXT_PATH="/data/shanglinyuan/Datasets/metric_meta_data.json"
 
 #CUDA_VISIBLE_DEVICES=0 python  --real_path $IMG_PATH --fake_path $TXT_PATH
 

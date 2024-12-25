@@ -4,7 +4,7 @@ output_dir=output
 
 #### Infer Hyper
 default_step=20                             # inference step for diffusion model
-default_bs=16                                # batch size for inference
+default_bs=24                                # batch size for inference
 default_sample_nums=30000                   # inference first $sample_nums sample in list(json.keys())
 default_sampling_algo="dpm-solver"
 default_json_file="/data/shanglinyuan/Datasets/metric_meta_data.json"   # MJHQ-30K meta json
@@ -221,7 +221,8 @@ EOF
   rm -r $metric_dir/tmp_${dataset}* || true
 fi
 
-img_path=${output_dir}/${job_name}/vis
+folder_name=${folder_name:-'CelebA-HQ-30K_epoch15_step5000_scale4.5_step20_size512_bs24_sampflow_dpm-solver_seed0_float16_imgnums30000'}
+img_path=${output_dir}/${job_name}/vis/${folder_name}
 exp_paths_file=${cache_file_path}
 
 # ============ 2. start of fid block  =================

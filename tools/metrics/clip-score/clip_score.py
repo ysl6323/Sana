@@ -89,13 +89,14 @@ class DummyDataset(Dataset):
                 data_dict = json.load(file)
             all_lines = list(data_dict.keys())[:sample_nums]
             if isinstance(all_lines, list):
+                # self.gen_img_path =''
                 for k in all_lines:
-                    img_path = os.path.join(self.gen_img_path, f"{k}.jpg")
+                    img_path = os.path.join(self.gen_img_path, f"{k}")
                     image_list.append(img_path)
             elif isinstance(all_lines, dict):
                 assert sample_nums >= 30_000, ValueError(f"{sample_nums} is not supported for json files")
                 for k, v in all_lines.items():
-                    img_path = os.path.join(self.gen_img_path, f"{k}.jpg")
+                    img_path = os.path.join(self.gen_img_path, f"{k}")
                     image_list.append(img_path)
 
         else:
@@ -261,7 +262,8 @@ def forward_modality(model, data, flag):
 
 def main():
     txt_path = args.txt_path if args.txt_path is not None else args.img_path
-    gen_img_path = str(os.path.join(args.img_path, args.exp_name))
+    # gen_img_path = str(os.path.join(args.img_path, args.exp_name))
+    gen_img_path = args.img_path
     if ".tar" in gen_img_path:
         save_txt_path = os.path.join(txt_path, f"{args.exp_name}_{args.tar_prompt_key}_clip_score.txt").replace(
             ".tar", ""

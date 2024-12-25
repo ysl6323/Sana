@@ -4,6 +4,7 @@ output_dir=output
 # ============ start of custom code block ==========
 config_file='/data/shanglinyuan/Sana/configs/sana_config/512ms/Sana_200M_img512.yaml'
 model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_15_step_5000.pth'
+folder_name='CelebA-HQ-30K_epoch15_step5000_scale4.5_step20_size512_bs24_sampflow_dpm-solver_seed0_float16_imgnums30000'
 
 if [ -n "$1" ]; then
   config_file=$1
@@ -15,7 +16,7 @@ fi
 # ============ end of custom code block ===========
 
 default_step=20
-default_bs=16    # 1
+default_bs=24    # 1
 default_sample_nums=30000
 default_sampling_algo="flow_dpm-solver"
 json_file="/data/shanglinyuan/Datasets/metric_meta_data.json"
@@ -115,8 +116,8 @@ do
     esac
 done
 
-inference=${inference:-true}    # if run model inference
-fid=${fid:-true}                # if compute fid
+inference=${inference:-false}    # if run model inference
+fid=${fid:-false}                # if compute fid
 clipscore=${clipscore:-true}    # if compute clip-score
 
 step=${step:-$default_step}
@@ -146,7 +147,7 @@ bash scripts/infer_metric_run_inference_metric.sh $config_file $model_paths_file
       --log_fid=$log_fid --log_clip_score=$log_clip_score \
       --output_dir=$output_dir --auto_ckpt=$auto_ckpt --sampling_algo=$sampling_algo \
       --auto_ckpt_interval=$auto_ckpt_interval --tracker_pattern=$tracker_pattern \
-      --ablation_key=$ablation_key --ablation_selections="$ablation_selections --np=4"
+      --ablation_key=$ablation_key --ablation_selections=$ablation_selections --np=4 --folder_name=$folder_name
 EOF
 
 echo $cmd '\n'
