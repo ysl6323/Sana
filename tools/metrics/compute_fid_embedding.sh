@@ -60,7 +60,7 @@ refer_path="/data/shanglinyuan/Datasets/CelebA-HQ-30K_${img_size}px_fid_embeddin
 if [ ! -f "$refer_path" ]; then
   # =============== save specific fid embeddings if not exists ==================
   echo "==================== saving embeddings ===================="
-  IMG_PATH="/data/shanglinyuan/Datasets/Sana_training_dataset"
+  IMG_PATH="/data/shanglinyuan/Datasets/Sana_metric_dataset"
   OUTPUT_PATH="/data/shanglinyuan/Datasets/CelebA-HQ-30K_${img_size}px_fid_embeddings_${sample_nums}.npz"
   echo "Saving reference embedding to $OUTPUT_PATH"
   CUDA_VISIBLE_DEVICES=0 \

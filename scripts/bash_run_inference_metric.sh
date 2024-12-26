@@ -3,8 +3,9 @@ output_dir=output
 
 # ============ start of custom code block ==========
 config_file='/data/shanglinyuan/Sana/configs/sana_config/512ms/Sana_200M_img512.yaml'
-model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_15_step_5000.pth'
-folder_name='CelebA-HQ-30K_epoch15_step5000_scale4.5_step20_size512_bs24_sampflow_dpm-solver_seed0_float16_imgnums30000'
+model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_62_step_20000.pth'
+folder_name='CelebA-HQ-30K_epoch62_step20000_scale4.5_step20_size512_bs24_sampflow_dpm-solver_seed0_float16_imgnums30000'
+
 
 if [ -n "$1" ]; then
   config_file=$1
@@ -116,8 +117,8 @@ do
     esac
 done
 
-inference=${inference:-false}    # if run model inference
-fid=${fid:-false}                # if compute fid
+inference=${inference:-true}    # if run model inference
+fid=${fid:-true}                # if compute fid
 clipscore=${clipscore:-true}    # if compute clip-score
 
 step=${step:-$default_step}

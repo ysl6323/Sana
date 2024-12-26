@@ -138,6 +138,10 @@ do
         ablation_selections="${arg#*=}"
         shift
         ;;
+        --folder_name=*)
+        folder_name="${arg#*=}"
+        shift
+        ;;
         --inference_script=*)
         inference_script="${arg#*=}"
         shift
