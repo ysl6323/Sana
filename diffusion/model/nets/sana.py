@@ -439,7 +439,7 @@ def Sana_200M_P1_D20(**kwargs):
 
 
 @MODELS.register_module()
-def Sana_200M_P1_D14(**kwargs):
+def Sana_300M_P1_D14(**kwargs):
     return Sana(depth=14, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
 

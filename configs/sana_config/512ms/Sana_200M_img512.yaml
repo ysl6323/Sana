@@ -17,16 +17,17 @@ data:
   sort_dataset: false
 # model config
 model:
-  model: Sana_200M_P1_D20
+  model: Sana_300M_P1_D14
   image_size: 512
   mixed_precision: fp16
   fp32_attention: false
-  load_from:
+  load_from: /data/shanglinyuan/Sana/output/debug/checkpoints/epoch_191_step_245000.pth
   resume_from:
-  aspect_ratio_type: ASPECT_RATIO_512
+    resume_lr_schedule: true
+  aspect_ratio_type: ASPECT_RATIO_512 
   multi_scale: false
   #pe_interpolation: 1.
-  attn_type: flash
+  attn_type: vanilla
   linear_head_dim: 48
   ffn_type: mbconvpreglu
   mlp_acts:
@@ -40,7 +41,7 @@ model:
 # VAE setting
 vae:
   vae_type: dc-ae
-  vae_pretrained: mit-han-lab/dc-ae-f32c32-sana-1.0
+  vae_pretrained: mit-han-lab/dc-ae-f32c32-sana-1.1
   scale_factor: 0.41407
   vae_latent_dim: 32
   vae_downsample_rate: 32
@@ -54,16 +55,6 @@ text_encoder:
   model_max_length: 300
   # CHI
   chi_prompt: 
-    # - 'Given a user prompt, generate an "Enhanced prompt" that provides detailed visual descriptions suitable for image generation. Evaluate the level of detail in the user prompt:'
-    # - '- If the prompt is simple, focus on adding specifics about colors, shapes, sizes, textures, and spatial relationships to create vivid and concrete scenes.'
-    # - '- If the prompt is already detailed, refine and enhance the existing details slightly without overcomplicating.'
-    # - 'Here are examples of how to transform or refine prompts:'
-    # - '- User Prompt: A cat sleeping -> Enhanced: A small, fluffy white cat curled up in a round shape, sleeping peacefully on a warm sunny windowsill, surrounded by pots of blooming red flowers.'
-    # - '- User Prompt: A busy city street -> Enhanced: A bustling city street scene at dusk, featuring glowing street lamps, a diverse crowd of people in colorful clothing, and a double-decker bus passing by towering glass skyscrapers.'
-    # - 'Please generate only the enhanced description for the prompt below and avoid including any additional commentary or evaluations:'
-    # - 'User Prompt: '
-    # - 'Please reconstruct the following description of a face, making it more concise while retaining all the main features and emotional expression:'
-    # - 'Description: '
     - 'This is a human face. '
 # Sana schedule Flow
 scheduler:
@@ -79,9 +70,9 @@ scheduler:
 # training setting
 train:
   num_workers: 4
-  seed: 1031
-  train_batch_size: 24
-  num_epochs: 100
+  seed: 43
+  train_batch_size: 16
+  num_epochs: 400
   gradient_accumulation_steps: 1
   grad_checkpointing: true
   gradient_clip: 0.1
@@ -93,12 +84,12 @@ train:
     eps:
       - 1.0e-30
       - 1.0e-16
-    lr: 0.0001
+    lr: 0.00002
     type: CAMEWrapper
-    weight_decay: 0.0
+    weight_decay: 0.02
   lr_schedule: constant
   lr_schedule_args:
-    num_warmup_steps: 2000
+    num_warmup_steps: 5000
   local_save_vis: true # if save log image locally
   visualize: true
   eval_sampling_steps: 2000
@@ -109,9 +100,14 @@ train:
   online_metric: false
   eval_metric_step: 2000
   online_metric_dir: metric_helper
+  validation_prompts: [
+    "The image shows a young adult female with fair skin and likely European descent. She has a smooth, oval face with a subtle jawline, light blue eyes, and a small, straight nose. Her lips are slightly parted and natural in color. She has long, straight blonde hair that cascades over her shoulders. The makeup is minimal, featuring subtle eyeliner and mascara. She is wearing a white top, and the background is a neutral, light gray, suggesting a studio setting.",
+    "The image shows a young male with a medium skin tone, likely of African descent. He has a short haircut, a round face, and a gentle smile. His eyes are wide and expressive, with a slight hint of a smile. He has a prominent nose and full lips. The background appears to be indoors, possibly at an event or gathering, with clear yellow figures and warm lighting.",
+    "The image shows a young female with fair skin and likely European descent. She has a smooth, oval face with a subtle jawline, light brown eyes with defined eyeliner, and a natural makeup look featuring pink blush and nude lipstick. Her hair is light brown, styled in loose waves and partially pulled back. The background appears to be an indoor setting with warm, blurred tones, suggesting a soft, neutral environment.",
+    "The image shows a middle aged adult female with a fair complexion, likely of Caucasian descent. She has long, straight platinum blonde hair with a straight fringe. Her facial features include a smooth jawline, a small nose, and full lips with a natural lip color. Her eyes are dark and accentuated with dark eyeliner. The background is white, suggesting an indoor setting with soft lighting.",
+    "The image shows a young adult female with a fair complexion, likely of European descent. She has a straight, medium-length dark brown hair, green eyes, and a neutral expression. Her facial features include a straight nose, full lips, and a smooth jawline. She appears to have minimal makeup, and there are no visible facial accessories. The background is white, suggesting an indoor setting with soft lighting.",
+  ]
 work_dir: output/debug
-resume_from: latest
-load_from: null
 debug: false
 caching: false
 report_to: tensorboard

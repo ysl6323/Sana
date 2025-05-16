@@ -208,7 +208,7 @@ def calculate_clip_score(dataloader, model, real_flag, fake_flag, save_json_path
     sample_num = 0.0
     json_dict = {} if save_json_path is not None else None
     logit_scale = model.logit_scale.exp()
-    for batch_data in tqdm(dataloader, desc=f"CLIP-Score: {args.exp_name}", position=args.gpu_id, leave=True):
+    for batch_data in tqdm(dataloader, desc=f"CLIP-Score: {args.exp_name}", position=args.gpu_id, leave=False):
         real_features = forward_modality(model, batch_data["real"], real_flag)
         fake_features = forward_modality(model, batch_data["fake"], fake_flag)
 
@@ -216,7 +216,9 @@ def calculate_clip_score(dataloader, model, real_flag, fake_flag, save_json_path
         real_features = real_features / real_features.norm(dim=1, keepdim=True).to(torch.float32)
         fake_features = fake_features / fake_features.norm(dim=1, keepdim=True).to(torch.float32)
 
-        score = logit_scale * (fake_features * real_features).sum()
+        # print("*******************LOGIT-SCALE:******************", logit_scale)
+        # score = logit_scale * (fake_features * real_features).sum()
+        score = (fake_features * real_features).sum()
         if save_json_path is not None:
             json_dict[batch_data["key"][0]] = {f"{batch_data['prompt_key'][0]}": f"{score:.04f}"}
 
@@ -230,6 +232,7 @@ def calculate_clip_score(dataloader, model, real_flag, fake_flag, save_json_path
 
 @torch.no_grad()
 def calculate_clip_score_official(dataloader):
+    print("------USING OFFICIAL CLIP SCORE COMPUTING FUNCTION------")
     import numpy as np
     from torchmetrics.multimodal.clip_score import CLIPScore
 
@@ -237,7 +240,7 @@ def calculate_clip_score_official(dataloader):
     # clip_score_fn = CLIPScore(model_name_or_path="openai/clip-vit-base-patch16").to(device)
     all_clip_scores = []
 
-    for batch_data in tqdm(dataloader, desc=args.exp_name, position=args.gpu_id, leave=True):
+    for batch_data in tqdm(dataloader, desc=args.exp_name, position=args.gpu_id, leave=False):
         imgs = batch_data["real"].add_(1.0).mul_(0.5)
         imgs = (imgs * 255).to(dtype=torch.uint8, device=device)
 
@@ -275,11 +278,11 @@ def main():
     else:
         save_txt_path = os.path.join(txt_path, f"{args.exp_name}_sample{sample_nums}_clip_score.txt")
         save_json_path = None
-    if os.path.exists(save_txt_path):
-        with open(save_txt_path) as f:
-            clip_score = f.readlines()[0].strip()
-        print(f"CLIP Score:  {clip_score}: {args.exp_name}")
-        return {args.exp_name: float(clip_score)}
+    # if os.path.exists(save_txt_path):
+    #     with open(save_txt_path) as f:
+    #         clip_score = f.readlines()[0].strip()
+    #     print(f"CLIP Score:  {clip_score}: {args.exp_name}")
+    #     return {args.exp_name: float(clip_score)}
 
     print(f"Loading CLIP model: {args.clip_model}")
     if args.clipscore_type == "diffusers":

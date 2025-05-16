@@ -55,7 +55,7 @@ if [ "$clip_score" = true ]; then
   # =============== compute clip-score from two jsons ==================
   echo "==================== computing clip-score ===================="
   cmd_template="python $py --real_path $IMG_PATH --fake_path $TXT_PATH \
-              --exp_name {exp_name} --txt_path {img_path} --img_path {img_path} --sample_nums $sample_nums \
+              --exp_name {exp_name} --txt_path {img_path} --img_path $img_path --sample_nums $sample_nums \
               --report_to $report_to --name {job_name} --gpu_id {gpu_id} --tracker_pattern $tracker_pattern"
 
   if [[ "$exp_names" != *.txt ]]; then

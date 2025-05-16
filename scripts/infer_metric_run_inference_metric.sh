@@ -225,7 +225,7 @@ EOF
   rm -r $metric_dir/tmp_${dataset}* || true
 fi
 
-folder_name=${folder_name:-'CelebA-HQ-30K_epoch15_step5000_scale4.5_step20_size512_bs24_sampflow_dpm-solver_seed0_float16_imgnums30000'}
+folder_name=${folder_name:-'CHECK_FOLDER_NAME'}
 img_path=${output_dir}/${job_name}/vis/${folder_name}
 exp_paths_file=${cache_file_path}
 

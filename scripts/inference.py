@@ -35,13 +35,14 @@ from tqdm import tqdm
 warnings.filterwarnings("ignore")  # ignore warning
 
 from diffusion import DPMS, FlowEuler, SASolverSampler
-from diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST, ASPECT_RATIO_2048_TEST
+from diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST, ASPECT_RATIO_2048_TEST, ASPECT_RATIO_256_TEST
 from diffusion.model.builder import build_model, get_tokenizer_and_text_encoder, get_vae, vae_decode
 from diffusion.model.utils import get_weight_dtype, prepare_prompt_ar
 from diffusion.utils.config import SanaConfig, model_init_config
 from diffusion.utils.logger import get_root_logger
 from tools.download import find_model
 
+inference_or_metrics = 0  # 0: inference, 1: metrics
 
 def set_env(seed=0, latent_size=256):
     torch.manual_seed(seed)
@@ -108,7 +109,12 @@ def visualize(config, args, model, items, bs, sample_steps, cfg_scale, pag_scale
 
         # check exists
         # save_file_name = f"{chunk[0]}" if dict_prompt else f"{prompts[0][:100]}.png" # inference
-        save_file_name = f"{chunk[0]}" if dict_prompt else f"{prompts[0][:100]}"   # metrics
+        # save_file_name = f"{chunk[0]}" if dict_prompt else f"{prompts[0][:100]}"   # metrics
+        if inference_or_metrics == 0: # inference
+            save_file_name = f"{chunk[0]}" if dict_prompt else f"{prompts[0][:100]}.png" # inference
+        elif inference_or_metrics == 1: # metrics
+            save_file_name = f"{chunk[0]}" if dict_prompt else f"{prompts[0][:100]}"   # metrics
+
         save_path = os.path.join(save_root, save_file_name)
         if os.path.exists(save_path):
             # make sure the noise is totally same
@@ -217,7 +223,13 @@ def visualize(config, args, model, items, bs, sample_steps, cfg_scale, pag_scale
         os.umask(0o000)
         for i, sample in enumerate(samples):
             # save_file_name = f"{chunk[i]}" if dict_prompt else f"{prompts[i][:100]}.png" # inference
-            save_file_name = f"{chunk[i]}" if dict_prompt else f"{prompts[i][:100]}"     # metrics
+            # save_file_name = f"{chunk[i]}" if dict_prompt else f"{prompts[i][:100]}"     # metrics
+
+            if inference_or_metrics == 0: # inference
+                save_file_name = f"{chunk[i]}" if dict_prompt else f"{prompts[i][:100]}.png" # inference
+            elif inference_or_metrics == 1: # metrics
+                save_file_name = f"{chunk[i]}" if dict_prompt else f"{prompts[i][:100]}"   # metrics
+
             save_path = os.path.join(save_root, save_file_name)
             save_image(sample, save_path, nrow=1, normalize=True, value_range=(-1, 1))
 

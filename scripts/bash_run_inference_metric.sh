@@ -3,8 +3,8 @@ output_dir=output
 
 # ============ start of custom code block ==========
 config_file='/data/shanglinyuan/Sana/configs/sana_config/512ms/Sana_200M_img512.yaml'
-model_paths_file='/data/shanglinyuan/Sana/output/debug/checkpoints/epoch_62_step_20000.pth'
-folder_name='CelebA-HQ-30K_epoch62_step20000_scale4.5_step20_size512_bs24_sampflow_dpm-solver_seed0_float16_imgnums30000'
+model_paths_file='/data/shanglinyuan/pretrained_weights/best_version_wd0.02_lr2e-5/debug/checkpoints/epoch_100_step_128201.pth'
+folder_name='CelebA-HQ-30K_epoch100_step128201_scale4.5_step20_size512_bs8_sampflow_dpm-solver_seed0_float16_imgnums30000'
 
 
 if [ -n "$1" ]; then
@@ -17,7 +17,7 @@ fi
 # ============ end of custom code block ===========
 
 default_step=20
-default_bs=24    # 1
+default_bs=8    # 1
 default_sample_nums=30000
 default_sampling_algo="flow_dpm-solver"
 json_file="/data/shanglinyuan/Datasets/metric_meta_data.json"
